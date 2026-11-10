@@ -27,20 +27,20 @@ export function renderSession(app, { id }) {
       ${speakerCard(session, index)}
 
       <section class="block">
-        <h2 class="block-title" data-reveal><span class="block-kicker">01</span>Session recap</h2>
+        <h2 class="block-title" data-reveal><span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Session recap</h2>
         <div class="recap">${session.recap.map((p, i) => `<p data-reveal style="--i:${i}">${esc(p)}</p>`).join('')}</div>
       </section>
 
       <section class="block">
-        <h2 class="block-title" data-reveal><span class="block-kicker">02</span>Key takeaways</h2>
+        <h2 class="block-title" data-reveal><span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1.1 1.3 1.1 2.2h5c0-.9.5-1.7 1.1-2.2A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Key takeaways</h2>
         <ol class="takeaways">
           ${session.takeaways.map((t, i) => `
-            <li data-reveal style="--i:${i % 2}"><span class="tk-num">${String(i + 1).padStart(2, '0')}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
+            <li data-reveal style="--i:${i % 2}"><div class="tk-head"><span class="tk-num" aria-hidden="true">${i + 1}</span><h3><span class="tk-mark">${esc(t.title)}</span></h3></div><p>${esc(t.text)}</p></li>`).join('')}
         </ol>
       </section>
 
       <section class="block">
-        <h2 class="block-title" data-reveal><span class="block-kicker">03</span>Highlights</h2>
+        <h2 class="block-title" data-reveal><span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 20V11M12 20V4M19 20v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Highlights</h2>
         <ul class="highlights">
           ${session.highlights.map((h, i) => `<li data-reveal style="--i:${i}"><strong data-count>${esc(h.value)}</strong><span>${esc(h.label)}</span></li>`).join('')}
         </ul>
