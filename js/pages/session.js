@@ -18,7 +18,7 @@ export function renderSession(app, { id }) {
 
   app.innerHTML = `
     <article class="container session-page">
-      <header class="session-head">
+      <header class="session-head" data-reveal>
         <a class="back-link" href="#/sessions">← All sessions</a>
         <h1>${esc(session.title)}</h1>
         <p class="lead">${esc(session.subtitle)}</p>
@@ -27,45 +27,45 @@ export function renderSession(app, { id }) {
       ${speakerCard(session, index)}
 
       <section class="block">
-        <h2 class="block-title"><span class="block-kicker">01</span>Session recap</h2>
-        <div class="recap">${session.recap.map((p) => `<p>${esc(p)}</p>`).join('')}</div>
+        <h2 class="block-title" data-reveal><span class="block-kicker">01</span>Session recap</h2>
+        <div class="recap">${session.recap.map((p, i) => `<p data-reveal style="--i:${i}">${esc(p)}</p>`).join('')}</div>
       </section>
 
       <section class="block">
-        <h2 class="block-title"><span class="block-kicker">02</span>Key takeaways</h2>
+        <h2 class="block-title" data-reveal><span class="block-kicker">02</span>Key takeaways</h2>
         <ol class="takeaways">
           ${session.takeaways.map((t, i) => `
-            <li><span class="tk-num">${String(i + 1).padStart(2, '0')}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
+            <li data-reveal style="--i:${i % 2}"><span class="tk-num">${String(i + 1).padStart(2, '0')}</span><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></li>`).join('')}
         </ol>
       </section>
 
       <section class="block">
-        <h2 class="block-title"><span class="block-kicker">03</span>Highlights</h2>
+        <h2 class="block-title" data-reveal><span class="block-kicker">03</span>Highlights</h2>
         <ul class="highlights">
-          ${session.highlights.map((h) => `<li><strong>${esc(h.value)}</strong><span>${esc(h.label)}</span></li>`).join('')}
+          ${session.highlights.map((h, i) => `<li data-reveal style="--i:${i}"><strong data-count>${esc(h.value)}</strong><span>${esc(h.label)}</span></li>`).join('')}
         </ul>
       </section>
 
-      <figure class="quote">
+      <figure class="quote" data-reveal>
         <blockquote>${esc(session.quote.text)}</blockquote>
         <figcaption>${esc(session.quote.by)}</figcaption>
       </figure>
 
       <section class="block game-block" id="play" aria-labelledby="play-title">
-        <div class="game-head">
+        <div class="game-head" data-reveal>
           <div>
             <p class="eyebrow">Learning game</p>
             <h2 id="play-title">Test what you learned</h2>
           </div>
           <div class="round-tabs" role="tablist" aria-label="Game rounds"></div>
         </div>
-        <div class="game-card">
+        <div class="game-card" data-reveal>
           <div class="game-intro"></div>
           <div class="game-stage"></div>
         </div>
       </section>
 
-      <nav class="pager" aria-label="Other sessions">
+      <nav class="pager" aria-label="Other sessions" data-reveal>
         ${prev ? `<a class="pager-link" href="#/session/${esc(prev.id)}"><span>← Previous</span><strong>#${index} ${esc(prev.tabLabel)}</strong></a>` : '<span></span>'}
         ${next ? `<a class="pager-link is-next" href="#/session/${esc(next.id)}"><span>Next →</span><strong>#${index + 2} ${esc(next.tabLabel)}</strong></a>` : `<a class="pager-link is-next" href="#/sessions"><span>Done here →</span><strong>All sessions</strong></a>`}
       </nav>

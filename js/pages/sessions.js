@@ -3,7 +3,7 @@ import { sessionRow, upcomingRow } from '../components/sessionRow.js';
 
 export function renderSessions(app) {
   app.innerHTML = `
-    <section class="container page-head">
+    <section class="container page-head" data-reveal>
       <p class="eyebrow">All sessions</p>
       <h1>Guest speakers this semester</h1>
       <p class="lead">Hover a row for a quick intro to the speaker. Click it for the recap and the games.</p>
@@ -15,7 +15,7 @@ export function renderSessions(app) {
 
     ${upcoming.length ? `
     <section class="container section">
-      <div class="section-head"><div><p class="eyebrow">Up next</p><h2>Announced in the syllabus</h2></div></div>
+      <div class="section-head" data-reveal><div><p class="eyebrow">Up next</p><h2>Announced in the syllabus</h2></div></div>
       <ul class="session-list">${upcoming.map(upcomingRow).join('')}</ul>
     </section>` : ''}`;
 

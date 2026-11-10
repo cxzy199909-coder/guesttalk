@@ -24,18 +24,18 @@ export const sessions = [
   {
     id: 'launchlab-vibe-coding',
     tabLabel: 'LaunchLab',
-    date: '9 Oct 2026',
+    date: 'Fri 9 Oct 2026',
     courseSession: 'Session 2',
     title: 'Vibe Coding: From Prompt to Live Website',
     subtitle: 'Claude Design, Claude Code, GitHub and Vercel',
     speaker: {
       name: 'LaunchLab',
-      members: ['Yibo', 'Nirvan', 'Rishabh'],
+      members: ['Yibo Yang', 'Nirvan Anand', 'Rishabh Modi'],
       role: 'Student builders · ISS LaunchLab',
       shortBio:
         'A student team who build real apps with AI. They walked the class through designing, building and shipping a website in a single session, with no coding background needed.',
       bio:
-        'LaunchLab is a team of student builders (Yibo, Nirvan and Rishabh) who showed the class how to go from a plain-English prompt to a live, shareable website using Claude Design, Claude Code, GitHub and Vercel. They closed with the challenge this site answers: build a tab for every guest session, each with a game that helps the lesson stick.',
+        'LaunchLab is a team of student builders (Yibo Yang, Nirvan Anand and Rishabh Modi) who showed the class how to go from a plain-English prompt to a live, shareable website using Claude Design, Claude Code, GitHub and Vercel. They closed with the challenge this site answers: build a tab for every guest session, each with a game that helps the lesson stick.',
       tags: ['Claude Design', 'Claude Code', 'GitHub', 'Vercel', 'Supabase'],
     },
     recap: [
@@ -113,7 +113,7 @@ export const sessions = [
   {
     id: 'nick-goh-ai-marketing-team',
     tabLabel: 'Nick Goh',
-    date: '30 Oct 2026',
+    date: 'Fri 30 Oct 2026',
     courseSession: 'Session 4',
     title: 'Building an AI Marketing Team',
     subtitle: 'A lite agentic workflow with Claude',

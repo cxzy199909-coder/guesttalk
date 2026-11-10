@@ -16,7 +16,7 @@ function avatar(sp) {
 export function speakerCard(session, index) {
   const sp = session.speaker;
   return `
-    <section class="speaker-card" aria-label="About the speaker">
+    <section class="speaker-card" aria-label="About the speaker" data-reveal style="--i:1">
       ${avatar(sp)}
       <div class="speaker-body">
         <p class="eyebrow">Guest #${index + 1} · ${esc(session.date)} · ${esc(session.courseSession)}</p>

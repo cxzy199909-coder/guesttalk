@@ -37,6 +37,7 @@ guesttalk/
     │   └── shared.js          # Result screen, progress bar, confetti
     └── lib/
         ├── dom.js             # escape, shuffle, initials
+        ├── motion.js          # scroll reveals, headline word reveal, count-ups, parallax
         └── progress.js        # Best scores in localStorage
 ```
 
@@ -95,4 +96,5 @@ npx serve .        # or: python3 -m http.server 8000
 - **Calm Morandi palette.** Soft pale blue for the hero and speaker cards, a lighter blue for list rows that turn light grey on hover, and pure white session pages for readability.
 - **Touch-friendly games.** Everything is tap-based (no drag and drop), with 44px+ targets. On touch screens the speaker bio in each row is shown by default because there is no hover.
 - **No accounts.** Scores stay on the visitor's device, so the site needs no database or privacy notice.
+- **Motion with restraint.** Word-by-word headline reveal, drifting hero light, gliding tab indicator, scroll reveals and count-ups. All of it switches off for visitors who prefer reduced motion.
 - **Accessible by default.** Semantic headings, visible focus rings, `aria-live` feedback in games and reduced-motion support.
