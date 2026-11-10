@@ -1,52 +1,64 @@
 import { esc } from '../lib/dom.js';
-import { sessions, upcoming } from '../data/sessions.js';
+import { sessions, upcoming, course } from '../data/sessions.js';
 import { sessionRow } from '../components/sessionRow.js';
-import { splitWords, parallax, countUp } from '../lib/motion.js';
+import { splitWords, countUp, scrollParallax } from '../lib/motion.js';
 
 export function renderHome(app) {
   const gameCount = sessions.reduce((n, s) => n + s.games.length, 0);
   const latest = sessions[sessions.length - 1];
   const next = upcoming[0];
+  const img = course.heroImage;
+
+  const cards = [
+    ...sessions.slice(-2).map((s) => ({
+      href: `#/session/${s.id}`,
+      num: `#${sessions.indexOf(s) + 1}`,
+      title: s.title,
+      meta: `${s.speaker.name} · ${s.date}`,
+    })),
+    ...(next ? [{ href: '#/sessions', num: 'Next up', title: next.name, meta: 'Coming soon', ghost: true }] : []),
+  ];
 
   app.innerHTML = `
     <section class="hero container">
       <div class="hero-card">
-        <div class="hero-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-top">
+          ${img ? `
+          <div class="hero-photo" aria-hidden="true">
+            <img src="${esc(img.src)}" alt="" decoding="async" fetchpriority="high" onerror="this.closest('.hero-photo').remove()">
+          </div>` : ''}
+          <div class="hero-veil" aria-hidden="true"></div>
+          <div class="hero-grid" aria-hidden="true"></div>
 
-        <div class="hero-copy">
-          <p class="hero-eyebrow hero-in" style="--d:0"><span class="dot" aria-hidden="true"></span>This semester</p>
-          <h1 class="hero-title">Learn from people who’ve <em>been there.</em></h1>
-          <p class="hero-lead hero-in" style="--d:6">Guest sessions throughout the semester, one place to catch up on what they shared.</p>
-          <div class="hero-cta hero-in" style="--d:7">
-            <a class="btn btn-primary btn-lg" href="#/session/${esc(latest.id)}">Explore the latest session <span class="btn-arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-soft btn-lg" href="#/sessions">All sessions</a>
+          <div class="hero-copy">
+            <p class="hero-eyebrow hero-in" style="--d:0"><span class="dot" aria-hidden="true"></span>This semester</p>
+            <h1 class="hero-title">Learn from people who’ve <em>been there.</em></h1>
+            <p class="hero-lead hero-in" style="--d:6">Guest sessions throughout the semester, one place to catch up on what they shared.</p>
+            <div class="hero-cta hero-in" style="--d:7">
+              <a class="btn btn-primary btn-lg" href="#/session/${esc(latest.id)}">Explore the latest session <span class="btn-arrow" aria-hidden="true">→</span></a>
+              <a class="btn btn-soft btn-lg" href="#/sessions">All sessions</a>
+            </div>
           </div>
-          <dl class="hero-stats hero-in" style="--d:8">
+          ${img?.credit ? `<a class="hero-credit" href="${esc(img.creditUrl || '#')}" target="_blank" rel="noopener">${esc(img.credit)}</a>` : ''}
+        </div>
+
+        <div class="hero-bottom">
+          <ul class="hero-cards">
+            ${cards.map((c, i) => `
+              <li class="hero-card-item ${c.ghost ? 'is-ghost' : ''}" style="--delay:${0.75 + i * 0.12}s; --float:${-i * 2.2}s">
+                <a href="${esc(c.href)}">
+                  <span class="fc-num">${esc(c.num)}</span>
+                  <span class="fc-title">${esc(c.title)}</span>
+                  <span class="fc-meta">${esc(c.meta)}</span>
+                  <span class="fc-go" aria-hidden="true">→</span>
+                </a>
+              </li>`).join('')}
+          </ul>
+          <dl class="hero-stats hero-in" style="--d:11">
             <div><dt>Guest sessions</dt><dd data-count>${sessions.length}</dd></div>
             <div><dt>Mini-games</dt><dd data-count>${gameCount}</dd></div>
             <div><dt>Logins needed</dt><dd>0</dd></div>
           </dl>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          ${sessions.slice(-2).map((s, i) => `
-            <div class="float-card fc-${i + 1}" data-depth="${14 + i * 10}">
-              <div class="fc-inner">
-                <span class="fc-num">#${sessions.indexOf(s) + 1}</span>
-                <span class="fc-title">${esc(s.title)}</span>
-                <span class="fc-meta">${esc(s.speaker.name)} · ${esc(s.date)}</span>
-              </div>
-            </div>`).join('')}
-          ${next ? `
-            <div class="float-card fc-3 is-ghost" data-depth="34">
-              <div class="fc-inner">
-                <span class="fc-num">Next up</span>
-                <span class="fc-title">${esc(next.name)}</span>
-                <span class="fc-meta">Coming soon</span>
-              </div>
-            </div>` : ''}
-          <div class="float-chip" data-depth="44"><div class="fc-inner"><span>🏆</span> 8 / 8 · Perfect run!</div></div>
         </div>
       </div>
     </section>
@@ -72,10 +84,9 @@ export function renderHome(app) {
       </ol>
     </section>`;
 
-  const title = app.querySelector('.hero-title');
-  splitWords(title);
-  parallax(app.querySelector('.hero-card'));
-  setTimeout(() => app.querySelectorAll('.hero [data-count]').forEach(countUp), 650);
+  splitWords(app.querySelector('.hero-title'));
+  scrollParallax(app.querySelector('.hero-photo img'), 0.18);
+  setTimeout(() => app.querySelectorAll('.hero [data-count]').forEach(countUp), 1300);
 
   return { title: 'GuestTalk · Semester guest speaker series', tab: null, nav: 'home', theme: 'tint' };
 }

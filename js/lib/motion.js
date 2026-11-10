@@ -99,3 +99,18 @@ export function parallax(container) {
     l.style.setProperty('--py', '0px');
   }));
 }
+
+/** Move an element slower than the page as you scroll (stops once it leaves the DOM). */
+export function scrollParallax(el, factor = 0.2) {
+  if (!el || reduced()) return;
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    if (!el.isConnected) { window.removeEventListener('scroll', onScroll); return; }
+    const y = Math.min(window.scrollY, 900);
+    el.style.transform = `translate3d(0, ${(y * factor).toFixed(1)}px, 0)`;
+  };
+  const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  update();
+}

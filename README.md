@@ -41,6 +41,11 @@ guesttalk/
         └── progress.js        # Best scores in localStorage
 ```
 
+## Change the hero photo
+
+The photo behind the home-page headline is set in `js/data/sessions.js` → `course.heroImage`.
+To use your own, add it to an `images/` folder (e.g. `images/lecture.jpg`) and set `src: 'images/lecture.jpg'` and a new `credit`.
+
 ## Add a new guest speaker
 
 Open `js/data/sessions.js`, copy one session object and edit it:

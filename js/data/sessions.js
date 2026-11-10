@@ -17,6 +17,12 @@ export const course = {
   programme: 'MMD',
   term: 'October 2026 term',
   lecturer: 'Madina Kalyayeva',
+  /** Photo behind the home-page headline. Swap `src` for 'images/your-photo.jpg' to use your own. */
+  heroImage: {
+    src: 'https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?auto=format&fit=crop&w=2000&q=70',
+    credit: 'Photo: Mikael Kristenson / Unsplash',
+    creditUrl: 'https://unsplash.com/photos/high-angle-photography-of-group-of-people-sitting-at-chairs-3aVlWP-7bg8',
+  },
 };
 
 export const sessions = [
